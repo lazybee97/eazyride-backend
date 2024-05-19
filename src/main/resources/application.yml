@@ -1,0 +1,37 @@
+micronaut:
+  application:
+    name: eazyride
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+      openapi-explorer:
+        paths: classpath:META-INF/swagger/views/openapi-explorer
+        mapping: /openapi-explorer/**
+  session:
+    http:
+      cookie: true
+      header: true
+  metrics:
+    enabled: true
+datasources:
+  default:
+    driver-class-name: org.postgresql.Driver
+    db-type: postgres
+    schema-generate: CREATE_DROP
+    dialect: POSTGRES
+jasync:
+  client:
+    port: 5432
+    host: the-host
+    database: the-db
+    username: test
+    password: test
+    maxActiveConnections: 5
+otel:
+  traces:
+    exporter: logging

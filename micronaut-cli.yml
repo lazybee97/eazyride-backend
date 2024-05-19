@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.eazyride
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [annotation-api, app-name, data, data-jdbc, github-workflow-google-cloud-run, google-cloud-workflow-ci, gradle, http-client, http-session, jackson-databind, jasync-sql, jdbc-hikari, kapt, kotest, kotlin, kotlin-application, kotlin-extension-functions, log4j2, management, micrometer, micrometer-annotation, micrometer-observation, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, openapi, openapi-adoc, openapi-explorer, postgres, readme, retry, serialization-jackson, shade, static-resources, swagger-ui, test-resources, tracing-opentelemetry-exporter-logging, yaml, yaml-build]
