@@ -5,6 +5,12 @@
 - [Configuration Reference](https://docs.micronaut.io/4.4.2/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
 ---
+### Micronaut can create local infra for test purposes
+
+Refer - https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/
+for example it can create a postgre/redis container for testing.
+
+---
 
 ## Google Cloud Run GitHub Workflow
 

@@ -23,6 +23,9 @@ dependencies {
     kapt("io.micronaut.openapi:micronaut-openapi")
     kapt("io.micronaut.openapi:micronaut-openapi-adoc")
     kapt("io.micronaut.serde:micronaut-serde-processor")
+
+    annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
+
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-management")
@@ -42,6 +45,7 @@ dependencies {
     implementation(platform("org.apache.logging.log4j:log4j-bom:2.23.1"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("io.micronaut.validation:micronaut-validation")
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.apache.logging.log4j:log4j-core")

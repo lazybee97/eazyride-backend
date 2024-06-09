@@ -1,6 +1,6 @@
 package com.eazyride
 
-import io.micronaut.runtime.Micronaut.run
+import io.micronaut.runtime.Micronaut.build
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.info.*
 
@@ -13,6 +13,9 @@ import io.swagger.v3.oas.annotations.info.*
 object Api {
 }
 fun main(args: Array<String>) {
-	run(*args)
+    build()
+        .args(*args)
+        .packages("com.eazyride")
+        .start()
 }
 
