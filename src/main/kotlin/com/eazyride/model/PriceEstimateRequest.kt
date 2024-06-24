@@ -9,8 +9,8 @@ data class PriceEstimateRequest(
     @NotBlank
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
-    val distance: Int,
+    val distance: Long,
     @NotBlank
-    val type: String,
-    val category: String?
+    val rideType: String,
+    val carType: String?
 )
