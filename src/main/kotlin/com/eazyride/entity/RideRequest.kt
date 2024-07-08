@@ -3,6 +3,7 @@ package com.eazyride.entity
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.validation.constraints.NotBlank
 
@@ -20,7 +21,7 @@ data class RideRequest(
     @NotBlank val rideType: String,
     @NotBlank val carType: String,
     @NotBlank var status: String,
-    // initialize to empty list
-//    var bids: List<Bid> = emptyList(),
+    @Relation(value = Relation.Kind.ONE_TO_MANY)
+    var bids: List<Bid> = emptyList(),
 //    val matchedDrivers: List<Long> = emptyList()
 )

@@ -8,17 +8,12 @@ import jakarta.validation.constraints.NotBlank
 
 @Serdeable
 @MappedEntity
-data class User(
+data class Distance(
     @field:Id
     @field:GeneratedValue(GeneratedValue.Type.AUTO)
     var id: Long? = null,
-    @NotBlank val name: String,
-    var phoneNumber: String? = null,
-    val email: String? = null,
-    var address: Address? = null,  // TODO[P1]: foreign key constraint
-    val dob: String? = null,
-    val preferredLanguage: String? = null,
-    var otp: String? = null,
-    val accessToken: String? = null,
-    val oAuthId: String? = null,
+    @NotBlank val origin: String,
+    @NotBlank val destination: String,
+    val distanceInKM: Long? = null,
+    val durationInMinutes: Long? = null,
 )

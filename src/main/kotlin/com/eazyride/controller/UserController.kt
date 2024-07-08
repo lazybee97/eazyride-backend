@@ -65,4 +65,15 @@ class UserController(
             HttpResponse.serverError("An error occurred while logging in user")
         }
     }
+
+    @Post(uri="/updateUser", produces=[MediaType.APPLICATION_JSON])
+    fun updateUser(@Body request: CreateUserRequest): HttpResponse<*> {
+        return try {
+            val response =  userService.createUser(request)
+            return  HttpResponse.ok(response)
+        } catch (e: Exception) {
+            logger.error(e) { "An error occurred while updating user" }
+            HttpResponse.serverError("An error occurred while updating user")
+        }
+    }
 }

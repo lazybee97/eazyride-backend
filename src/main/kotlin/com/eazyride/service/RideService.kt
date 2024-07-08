@@ -1,6 +1,8 @@
 package com.eazyride.service
 
+import com.eazyride.entity.Bid
 import com.eazyride.entity.Ride
+import com.eazyride.entity.RideRequest
 import com.eazyride.model.GetRidesRequest
 import com.eazyride.model.GetRidesResponse
 import com.eazyride.model.GetRideRequestsRequest
@@ -52,7 +54,7 @@ class RideService(
         }
         val rideRequest = rideRequestRepository.get(request.rideRequestId) ?: return AcceptBidForRideRequestResponse()
 
-        val bid = bidRepository.get(request.bidId) ?: return AcceptBidForRideRequestResponse()
+        val bid = rideRequest.bids.find { it.id == request.bidId } ?: return AcceptBidForRideRequestResponse()
 
         val ride = rideRepository.save(
             Ride(
@@ -76,6 +78,8 @@ class RideService(
             )
         )
 
+        invalidateOtherBids(rideRequest, bid)
+
         return AcceptBidForRideRequestResponse(success = true, ride = ride)
     }
 
@@ -89,5 +93,14 @@ class RideService(
         val bearerToken = accessToken?.takeIf { it.startsWith("Bearer ") }?.substring(7)
         logger.debug("bearerToken: $bearerToken")
         return bearerToken == user.accessToken
+    }
+
+    private fun invalidateOtherBids(rideRequest: RideRequest, acceptedBid: Bid) {
+        rideRequest.bids.forEach {
+            if (it.id != acceptedBid.id) {
+                bidRepository.update(it.copy(status = "INVALID"))
+                // TODO[P0]: Send notification to driver
+            }
+        }
     }
 }

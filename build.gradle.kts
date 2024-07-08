@@ -35,6 +35,7 @@ dependencies {
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("com.google.api-client:google-api-client:2.4.0")
+    implementation("com.google.maps:google-maps-services:2.2.0")
     implementation("io.micronaut.micrometer:micronaut-micrometer-core")
     implementation("io.micronaut.micrometer:micronaut-micrometer-observation")
     implementation("io.micronaut.serde:micronaut-serde-jackson")

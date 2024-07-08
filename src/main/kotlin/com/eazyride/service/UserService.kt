@@ -41,11 +41,16 @@ class UserService(
         val googleIdToken = googleAuth.verifyToken(request.idToken) ?: return LoginUserResponse()
 
         val payload = googleIdToken.payload
-        val user = userRepository.save(User(
-            name = payload["name"] as String,
-            email = payload.email,
-            phoneNumber = payload["phone_number"] as String,
-        ))
+
+        val existingUser = userRepository.findByOAuthId(payload.subject)
+
+        val user = existingUser
+        ?: userRepository.save(
+            User(
+                name = payload["name"] as String,
+                email = payload.email,
+            )
+        )
 
         val accessToken = createAndPersistAccessToken(user)
 
@@ -90,6 +95,14 @@ class UserService(
             success = success,
             accessToken = accessToken
         )
+    }
+
+    fun updateUser(request: UpdateUserRequest): CreateUserResponse {
+        logger.info("Updating user with request: $request")
+        val address = addressRepository.save(request.address)
+        val userWithAddress = request.user.copy(address = address)
+        val user = userRepository.update(userWithAddress)
+        return CreateUserResponse(user = user, success = true)
     }
 
     private fun generateOTP(): String {

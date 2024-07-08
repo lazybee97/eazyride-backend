@@ -14,5 +14,7 @@ abstract class UserRepository : PageableRepository<User, Long> {
 
     abstract fun findByPhoneNumber(phoneNumber: String): User?
 
+    abstract fun findByOAuthId(oAuthId: String): User?
+
     abstract fun update(user: User): User
 }

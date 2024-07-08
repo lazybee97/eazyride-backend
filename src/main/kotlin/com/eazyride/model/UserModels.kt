@@ -24,6 +24,15 @@ data class CreateOAuthUserRequest(
 
 @Introspected
 @Serdeable
+data class UpdateUserRequest(
+    @NotBlank
+    val user: User,
+    @NotBlank
+    val address: Address
+)
+
+@Introspected
+@Serdeable
 data class CreateUserResponse(
     val user: User,
     val success: Boolean = false
