@@ -1,5 +1,7 @@
 package com.eazyride.service
 
+import com.eazyride.model.PriceEstimateRequest
+import com.eazyride.model.PriceEstimateResponse
 import jakarta.inject.Singleton
 
 /**
