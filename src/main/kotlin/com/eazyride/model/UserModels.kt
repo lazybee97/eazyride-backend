@@ -12,7 +12,7 @@ data class CreateUserRequest(
     @NotBlank
     val user: User,
     @NotBlank
-    val address: Address
+    val address: Address,
 )
 
 @Introspected
@@ -24,18 +24,20 @@ data class CreateOAuthUserRequest(
 
 @Introspected
 @Serdeable
-data class UpdateUserRequest(
-    @NotBlank
-    val user: User,
-    @NotBlank
-    val address: Address
+data class CreateUserResponse(
+    val user: User? = null,
+    val success: Boolean = false,
 )
 
 @Introspected
 @Serdeable
-data class CreateUserResponse(
+data class UpdateUserRequest(
+    @NotBlank
     val user: User,
-    val success: Boolean = false
+    @NotBlank
+    val address: Address,
+    @NotBlank
+    val accessToken: String,
 )
 
 @Introspected
@@ -44,26 +46,26 @@ data class LoginUserRequest(
     @NotBlank
     val phoneNumber: String,
     @NotBlank
-    val otp: String
+    val otp: String,
 )
 
 @Introspected
 @Serdeable
 data class LoginUserResponse(
-    val userId: Long? = null,
+    val user: User? = null,
     val success: Boolean = false,
-    val accessToken: String? = null
+    val accessToken: String? = null,
 )
 
 @Introspected
 @Serdeable
 data class InitiateLoginRequest(
     @NotBlank
-    val phoneNumber: String
+    val phoneNumber: String,
 )
 
 @Introspected
 @Serdeable
 data class InitiateLoginResponse(
-    val success: Boolean = false
+    val success: Boolean = false,
 )

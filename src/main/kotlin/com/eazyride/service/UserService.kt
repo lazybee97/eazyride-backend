@@ -14,9 +14,9 @@ import mu.KLogger
  */
 @Singleton
 class UserService(
-    private val userRepository: UserRepository,
-    private val addressRepository: AddressRepository,
-    private val googleAuth: GoogleAuth,
+    val userRepository: UserRepository,
+    val addressRepository: AddressRepository,
+    val googleAuth: GoogleAuth,
 ) {
     private val logger: KLogger = KotlinLogging.logger {}
 
@@ -32,7 +32,7 @@ class UserService(
 
         val success = sendOTP(user)
 
-        val response = CreateUserResponse(user = user.copy(otp=null), success = success)
+        val response = CreateUserResponse(user = user.copy(otp = null), success = success)
         return response
     }
 
@@ -45,17 +45,17 @@ class UserService(
         val existingUser = userRepository.findByOAuthId(payload.subject)
 
         val user = existingUser
-        ?: userRepository.save(
-            User(
-                name = payload["name"] as String,
-                email = payload.email,
+            ?: userRepository.save(
+                User(
+                    name = payload["name"] as String,
+                    email = payload.email,
+                )
             )
-        )
 
         val accessToken = createAndPersistAccessToken(user)
 
         return LoginUserResponse(
-            userId = user.id,
+            user = user,
             success = true,
             accessToken = accessToken
         )
@@ -91,7 +91,7 @@ class UserService(
         }
 
         return LoginUserResponse(
-            userId = user.id,
+            user = user.copy(otp = null, accessToken = null),
             success = success,
             accessToken = accessToken
         )
@@ -99,10 +99,18 @@ class UserService(
 
     fun updateUser(request: UpdateUserRequest): CreateUserResponse {
         logger.info("Updating user with request: $request")
+        if (request.user.id == null) {
+            logger.error("Id is mandatory: ${request.user}")
+            return CreateUserResponse()
+        }
+        if (!checkUserAccess(request.user.id!!, request.accessToken)) {
+            logger.error("Access denied for user: ${request.user.id}")
+            return CreateUserResponse()
+        }
         val address = addressRepository.save(request.address)
         val userWithAddress = request.user.copy(address = address)
-        val user = userRepository.update(userWithAddress)
-        return CreateUserResponse(user = user, success = true)
+        val updatedUser = userRepository.update(userWithAddress)
+        return CreateUserResponse(user = updatedUser.copy(otp = null, accessToken = null), success = true)
     }
 
     private fun generateOTP(): String {
@@ -123,5 +131,10 @@ class UserService(
         val newAccessToken = "1234567890"
         userRepository.update(user.copy(accessToken = newAccessToken))
         return newAccessToken
+    }
+
+    private fun checkUserAccess(userId: Long, accessToken: String): Boolean {
+        val user = userRepository.findById(userId)
+        return user.isPresent && accessToken == user.get().accessToken
     }
 }

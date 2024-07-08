@@ -1,9 +1,6 @@
 package com.eazyride.controller
 
-import com.eazyride.model.CreateOAuthUserRequest
-import com.eazyride.model.CreateUserRequest
-import com.eazyride.model.InitiateLoginRequest
-import com.eazyride.model.LoginUserRequest
+import com.eazyride.model.*
 import com.eazyride.service.UserService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
@@ -67,9 +64,9 @@ class UserController(
     }
 
     @Post(uri="/updateUser", produces=[MediaType.APPLICATION_JSON])
-    fun updateUser(@Body request: CreateUserRequest): HttpResponse<*> {
+    fun updateUser(@Body request: UpdateUserRequest): HttpResponse<*> {
         return try {
-            val response =  userService.createUser(request)
+            val response =  userService.updateUser(request)
             return  HttpResponse.ok(response)
         } catch (e: Exception) {
             logger.error(e) { "An error occurred while updating user" }
