@@ -1,15 +1,17 @@
 package com.eazyride.dto
 
+import com.eazyride.enums.RideType
+import io.micronaut.core.annotation.Introspected
 import jakarta.validation.constraints.NotBlank
 import java.time.LocalDateTime
 
-data class PriceEstimateRequest(
+@Introspected
+data class PriceEstimateDto(
     @NotBlank
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
-    @NotBlank
     val distance: Long,
     @NotBlank
-    val rideType: String,
-    val carType: String?
+    val rideType: RideType,
+    val carType: String?,
 )

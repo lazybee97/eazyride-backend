@@ -1,12 +1,17 @@
 package com.eazyride
-import io.micronaut.runtime.EmbeddedApplication
-import io.micronaut.test.extensions.kotest5.annotation.MicronautTest
+import com.eazyride.utils.getBilledDays
 import io.kotest.core.spec.style.StringSpec
+import java.time.LocalDateTime
 
-@MicronautTest
-class EazyrideTest(private val application: EmbeddedApplication<*>): StringSpec({
+class EazyrideTest :
+    StringSpec({
 
-    "test the server is running" {
-        assert(application.isRunning)
-    }
-})
+        "test time util" {
+            assert(
+                getBilledDays(
+                    a = LocalDateTime.of(2021, 1, 2, 6, 0),
+                    b = LocalDateTime.of(2021, 1, 2, 4, 59),
+                ) == 3L,
+            )
+        }
+    })

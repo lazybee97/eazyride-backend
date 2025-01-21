@@ -5,6 +5,7 @@ import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.validation.constraints.NotBlank
+import java.time.LocalDateTime
 
 @Serdeable
 @MappedEntity
@@ -16,10 +17,10 @@ data class Ride(
     @NotBlank val carId: Long,
     @NotBlank val driverId: Long,
     @NotBlank val rideRequestId: Long,
-    @NotBlank val pickupLoc: String, //addressId?
+    @NotBlank val pickupLoc: String, // addressId?
     @NotBlank val dropLoc: String,
-    @NotBlank val startTime: String,
-    @NotBlank val endTime: String,
+    @NotBlank val startTime: LocalDateTime,
+    @NotBlank val endTime: LocalDateTime,
     @NotBlank val rideType: String,
     @NotBlank val carType: String,
     @NotBlank var status: String,
@@ -28,5 +29,5 @@ data class Ride(
     @NotBlank val profit: Double,
     @NotBlank val initialPayment: Double,
     @NotBlank val finalPayment: Double,
-    @NotBlank val paymentStatus: String
+    @NotBlank val paymentStatus: String,
 )

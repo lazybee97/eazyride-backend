@@ -9,8 +9,8 @@ import jakarta.validation.constraints.NotBlank
 @Introspected
 @Serdeable
 data class GetRidesRequest(
-    @NotBlank
-    val userId: Long,
+    val userId: Long? = null,
+    val driverId: Long? = null,
     @NotBlank
     val accessToken: String,
     val status: String? = null

@@ -11,7 +11,7 @@ plugins {
 version = "0.1"
 group = "com.eazyride"
 
-val kotlinVersion=project.properties.get("kotlinVersion")
+val kotlinVersion = project.properties.get("kotlinVersion")
 repositories {
     mavenCentral()
 }
@@ -46,13 +46,14 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     implementation("org.apache.logging.log4j:log4j-api")
     implementation(platform("org.apache.logging.log4j:log4j-bom:2.23.1"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.micronaut.validation:micronaut-validation")
+    implementation("io.micronaut.openapi:micronaut-openapi-adoc")
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
+    compileOnly("jakarta.persistence:jakarta.persistence-api")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.apache.logging.log4j:log4j-core")
-    implementation("org.apache.logging.log4j:log4j-slf4j2-impl")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.yaml:snakeyaml")
 }
@@ -89,8 +90,8 @@ micronaut {
         annotations("com.eazyride.*")
     }
     aot {
-    // Please review carefully the optimizations enabled below
-    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
         optimizeServiceLoading = false
         convertYamlToJava = false
         precomputeOperations = true
