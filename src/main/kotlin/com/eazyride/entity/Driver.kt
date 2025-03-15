@@ -20,4 +20,5 @@ data class Driver(
     val homeLocation: Long, // Address ID
     val deviceId: String,
     val isVerified: Boolean,
+    val onboardedLocation: String
 )

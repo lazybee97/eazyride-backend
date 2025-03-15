@@ -15,7 +15,7 @@ data class User(
     @NotBlank val name: String,
     var phoneNumber: String? = null,
     val email: String? = null,
-    var address: Address? = null,  // TODO[P1]: foreign key constraint
+    var address: Address? = null, // TODO[P1]: foreign key constraint
     val dob: String? = null,
     val preferredLanguage: String? = null,
     var otp: String? = null,

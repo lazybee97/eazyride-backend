@@ -11,7 +11,7 @@ import java.util.UUID
 @MappedEntity
 data class Schedule(
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(GeneratedValue.Type.AUTO)
     val id: UUID? = null,
     val rideId: UUID,
     val isManual: Boolean,
